@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Joval — Galeria visual desktop e mobile</title>
+  <style>
+    :root { color-scheme: light; font-family: Arial, sans-serif; background: #faf5ec; color: #2a211c; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header { position: sticky; top: 0; z-index: 1; padding: 20px clamp(18px, 4vw, 56px); background: #faf5ecf2; border-bottom: 1px solid #dfcbbc; backdrop-filter: blur(12px); }
+    header h1 { margin: 0 0 5px; font-size: clamp(24px, 3vw, 38px); }
+    header p { margin: 0; color: #66544a; }
+    nav { display: flex; gap: 18px; margin-top: 14px; flex-wrap: wrap; }
+    a { color: #b23a1e; }
+    main { max-width: 1500px; margin: auto; padding: 20px clamp(18px, 4vw, 56px) 70px; }
+    section { margin: 38px 0 70px; }
+    h2 { font-size: 27px; margin: 0 0 24px; padding-bottom: 12px; border-bottom: 2px solid #e8a33d; }
+    article { margin: 0 0 42px; }
+    h3 { margin: 0 0 12px; font-size: 21px; }
+    .pair { display: grid; grid-template-columns: minmax(0, 2fr) minmax(210px, .8fr); gap: 18px; align-items: start; }
+    figure { margin: 0; }
+    figcaption { font-size: 13px; font-weight: bold; letter-spacing: .08em; text-transform: uppercase; color: #ad4427; margin-bottom: 8px; }
+    img { display: block; width: 100%; height: auto; border: 1px solid #e4d4c6; border-radius: 12px; box-shadow: 0 8px 24px #4c271417; }
+    figure a { display: block; }
+    @media (max-width: 700px) { .pair { grid-template-columns: 1fr; } header { position: static; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Joval — proposta visual</h1>
+    <p>21 páginas · desktop e mobile · clique em qualquer imagem para a abrir em tamanho completo. Fotografias e preços são ilustrativos. Esta galeria apresenta imagens de conceito, não um site funcional.</p>
+    <nav><a href="#publico">Site público</a><a href="#profissional">Área profissional</a><a href="#backoffice">Backoffice</a></nav>
+  </header>
+  <main id="gallery"></main>
+  <script>
+    const groups = [
+      ['publico', 'Site público', [
+        ['Página inicial', '01_homepage_v3', '01_homepage_v2_mobile'],
+        ['Catálogo', '02_catalogo_v3'],
+        ['Produto', '03_produto_v3'],
+        ['Como fazemos', '04_como_fazemos_v3'],
+        ['Calculadora de festa', '05_calculadora_festa_v3'],
+        ['Notícias', '06_noticias_v3'],
+        ['Contactos e carreiras', '07_carreiras_contactos_v3'],
+        ['Pedir tabela de preços', '16_pedir_precos_v3'],
+        ['A Joval', '19_a_joval_v3']
+      ]],
+      ['profissional', 'Área profissional', [
+        ['Acesso', '08_pro_login'],
+        ['Painel', '08_pro_painel'],
+        ['Catálogo profissional', '08_pro_catalogo'],
+        ['Nova encomenda', '09_pro_encomenda'],
+        ['Seguimento e documentos', '10_pro_seguimento']
+      ]],
+      ['backoffice', 'Backoffice', [
+        ['Painel', '11_admin_painel'],
+        ['Produtos', '12_admin_produtos'],
+        ['Encomendas', '13_admin_encomendas'],
+        ['Clientes e preços', '14_admin_clientes_precos'],
+        ['Conteúdos e regras', '15_admin_conteudos_regras'],
+        ['Relatórios', '17_admin_relatorios'],
+        ['Equipa e permissões', '18_admin_equipa']
+      ]]
+    ];
+    const gallery = document.getElementById('gallery');
+    for (const [id, title, pages] of groups) {
+      const section = document.createElement('section');
+      section.id = id;
+      section.innerHTML = `<h2>${title}</h2>`;
+      for (const [label, base, mobileOverride] of pages) {
+        const article = document.createElement('article');
+        const mobile = mobileOverride || `${base}_mobile`;
+        const wideLink = base === '01_homepage_v3' ? ' <small>· <a href="01_homepage_v2_wide.png" target="_blank">Vista desktop larga</a></small>' : '';
+        article.innerHTML = `<h3>${label}${wideLink}</h3><div class="pair"><figure><figcaption>Desktop</figcaption><a href="${base}.png" target="_blank"><img src="${base}.png" alt="${label} — desktop" loading="lazy"></a></figure><figure><figcaption>Mobile</figcaption><a href="${mobile}.png" target="_blank"><img src="${mobile}.png" alt="${label} — mobile" loading="lazy"></a></figure></div>`;
+        section.append(article);
+      }
+      gallery.append(section);
+    }
+  </script>
+</body>
+</html>
